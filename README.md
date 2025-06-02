@@ -4,7 +4,6 @@
 
 [![npm version](https://badge.fury.io/js/logyo.svg)](https://badge.fury.io/js/logyo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js CI](https://github.com/Aeon-San/logyo/workflows/Node.js%20CI/badge.svg)](https://github.com/Aeon-San/logyo/actions)
 
 ## ✨ Features
 
