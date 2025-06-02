@@ -1,0 +1,27 @@
+# Node.js dependencies
+node_modules/
+
+# Build output directories
+dist/
+
+# Log files
+*.log
+
+# OS specific files
+.DS_Store   # macOS
+Thumbs.db   # Windows
+
+# Environment variables
+.env
+
+# IDE specific files (VSCode example)
+.vscode/
+
+# npm package lock files.
+package-lock.json
+bun.lock
+
+# Rollup cache directory
+.rollup.cache/
+
+.vscode
