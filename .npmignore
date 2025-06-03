@@ -1,0 +1,12 @@
+src/
+examples/
+rollup.config.js
+rollup.config.cjs.js
+babel.config.json
+.git/
+.gitignore
+*.log
+node_modules/
+coverage/
+.nyc_output/
+.vscode/

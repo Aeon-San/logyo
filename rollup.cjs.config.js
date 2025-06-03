@@ -11,18 +11,26 @@ export default {
         exports: 'named'
     },
     plugins: [
-        resolve(),
+        resolve({
+            preferBuiltins: true
+        }),
         commonjs(),
         babel({
             babelHelpers: 'bundled',
             exclude: 'node_modules/**',
+            envName: 'cjs', // This tells Babel to use the 'cjs' environment config
             presets: [
                 ['@babel/preset-env', {
                     targets: { node: '14' },
-                    modules: false
+                    modules: false // Keeping modules as ES6 for Rollup
                 }]
             ]
         })
     ],
-    external: ['chalk', 'fs', 'path']
+    external: [
+        'chalk',
+        'fs',
+        'path',
+        'process'
+    ]
 };

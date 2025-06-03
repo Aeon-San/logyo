@@ -4,18 +4,40 @@ import commonjs from '@rollup/plugin-commonjs';
 
 export default {
     input: 'src/index.js',
-    output: {
-        file: 'dist/index.js',
-        format: 'es',
-        sourcemap: true
-    },
+    output: [
+        {
+            file: 'dist/index.js',
+            format: 'es',
+            sourcemap: true,
+            exports: 'named'
+        },
+        {
+            file: 'dist/index.esm.js',
+            format: 'es',
+            sourcemap: true,
+            exports: 'named'
+        }
+    ],
     plugins: [
-        resolve(),
+        resolve({
+            preferBuiltins: true
+        }),
         commonjs(),
         babel({
             babelHelpers: 'bundled',
-            exclude: 'node_modules/**'
+            exclude: 'node_modules/**',
+            presets: [
+                ['@babel/preset-env', {
+                    targets: { node: '14' },
+                    modules: false
+                }]
+            ]
         })
     ],
-    external: ['chalk', 'fs', 'path']
+    external: [
+        'chalk',
+        'fs',
+        'path',
+        'process'
+    ]
 };

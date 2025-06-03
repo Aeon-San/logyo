@@ -9,5 +9,33 @@
                 "modules": false
             }
         ]
-    ]
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        },
+                        "modules": false
+                    }
+                ]
+            ]
+        },
+        "cjs": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": {
+                            "node": "14"
+                        },
+                        "modules": false
+                    }
+                ]
+            ]
+        }
+    }
 }
