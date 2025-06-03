@@ -1,6 +1,6 @@
 {
   "name": "logyo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A beautiful, feature-rich terminal logger with animations, gradients, and comprehensive logging capabilities",
   "type": "module",
   "main": "dist/index.js",
