@@ -29,8 +29,6 @@ export default {
     ],
     external: [
         'chalk',
-        'fs',
-        'path',
         'process'
     ]
 };

@@ -1,6 +1,4 @@
 import chalk from 'chalk';
-import fs from 'fs';
-import path from 'path';
 
 const createLogger = () => {
     // Expanded color palette with gradients
@@ -184,37 +182,7 @@ const createLogger = () => {
         return `${Math.floor(ms / 3600000)}h ${Math.floor((ms % 3600000) / 60000)}m`;
     };
 
-    const logToFile = (level, message, data = {}) => {
-        try {
-            const logsDir = path.join(process.cwd(), 'logs');
-            if (!fs.existsSync(logsDir)) {
-                fs.mkdirSync(logsDir, { recursive: true });
-            }
 
-            const timestamp = new Date().toISOString();
-            const logEntry = {
-                timestamp,
-                level: level.toUpperCase(),
-                message,
-                data,
-                pid: process.pid,
-            };
-
-            const logFile = path.join(logsDir, `bot-${timestamp.split('T')[0]}.json`);
-
-            let logs = [];
-            if (fs.existsSync(logFile)) {
-                const content = fs.readFileSync(logFile, 'utf8');
-                if (content) logs = JSON.parse(content);
-            }
-
-            logs.push(logEntry);
-
-            fs.writeFileSync(logFile, JSON.stringify(logs, null, 2), 'utf8');
-        } catch (error) {
-            // silent fail
-        }
-    };
 
     return {
 
@@ -242,11 +210,12 @@ const createLogger = () => {
             const version = botInfo.version || '1.0.0';
             const commandCount = botInfo.commandCount || 0;
             const startedAt = getTimeStamp(true);
+            const botName = botInfo.name || '🤖 APPLICATION LOGGER 🤖';
 
             const banner = [
                 separator,
                 centerLabelValue(
-                    createGradientText('🤖 AEONIFY WHATSAPP BOT 🤖', colors.neon, colors.gold),
+                    createGradientText(botName, colors.neon, colors.gold),
                     ''
                 ),
                 separator,
@@ -280,7 +249,6 @@ const createLogger = () => {
             ].join('\n');
 
             console.log(banner);
-            logToFile('info', 'Bot started successfully', botInfo);
         },
 
         logMessage: (messageData) => {
@@ -337,11 +305,6 @@ ${colors.info(`${icons.database}  Chat:`)} ${chatInfo}
 ${badges.length > 0 ? `${colors.info(`${icons.star} Tags:`)} ${badges.join(' ')}` : ''}
 ${createSeparator('─', 80, colors.system)}
 `);
-
-            // Log to file
-            logToFile('message', 'Message received', {
-                messageType, senderName, senderNumber, chatType, isCommand, executionTime
-            });
         },
 
         // command logging
@@ -370,8 +333,6 @@ ${createSeparator('─', 80, colors.system)}
                     console.log(`${colors.security(`${icons.lock} ${timestamp}`)} ${colors.security.bold('DENIED')} ${colors.security(`"${commandName}" insufficient permissions`)}`);
                     break;
             }
-
-            logToFile('command', `Command ${status}`, { commandName, executionTime, ...context });
         },
 
         // System logging with categories
@@ -401,7 +362,6 @@ ${createSeparator('─', 80, colors.system)}
             const timestamp = colors.time(`[${getTimeStamp()}]`);
 
             console.log(`${color(`${icon} ${timestamp}`)} ${color.bold(`[${category}]`)} ${color(message)}`);
-            logToFile(type, message, { category });
         },
 
         // error logging with stack traces
@@ -434,10 +394,6 @@ ${createSeparator('─', 80, colors.system)}
             );
 
             console.log('\n' + errorBox + '\n');
-
-            logToFile('error', error.message, {
-                errorId, stack: error.stack, context, timestamp
-            });
         },
 
         // Performance monitoring
@@ -463,7 +419,6 @@ ${createSeparator('─', 80, colors.system)}
             );
 
             console.log('\n' + perfBox + '\n');
-            logToFile('performance', 'Performance stats', stats);
         },
 
         // Connection status logging
@@ -486,7 +441,6 @@ ${createSeparator('─', 80, colors.system)}
             const icon = statusIcons[status] || icons.info;
 
             console.log(`${color(`${icon} [${getTimeStamp()}] CONNECTION ${status.toUpperCase()}`)} ${color(JSON.stringify(details))}`);
-            logToFile('connection', `Connection ${status}`, details);
         },
 
         // Loading animations
@@ -526,7 +480,6 @@ ${createSeparator('─', 80, colors.system)}
             );
 
             console.log('\n' + securityBox + '\n');
-            logToFile('security', event, { severity, details });
         },
 
         // Export utilities
@@ -538,8 +491,7 @@ ${createSeparator('─', 80, colors.system)}
             createGradientText,
             getTimeStamp,
             formatBytes,
-            formatDuration,
-            logToFile
+            formatDuration
         }
     };
 };

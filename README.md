@@ -10,7 +10,6 @@
 - 🎨 **Rich Visual Design** - Gradient colors, Unicode icons, and beautiful formatting
 - 📊 **Performance Monitoring** - Built-in metrics tracking and system monitoring
 - 🔒 **Security Logging** - Dedicated security event tracking with severity levels
-- 📁 **File Persistence** - Automatic JSON file logging with structured data
 - 🎭 **Animations** - Loading spinners and dynamic visual effects
 - 🎯 **Multiple Log Types** - Messages, commands, system events, errors, and more
 - 🛡️ **Error Handling** - Comprehensive error logging with stack traces
@@ -31,6 +30,7 @@ import { logger } from 'logyo';
 
 // Initialize with bot information
 logger.logStartup({
+  name: '🤖 MY AWESOME BOT 🤖',
   version: '1.0.0',
   commandCount: 25
 });
@@ -55,6 +55,7 @@ const { logger } = require('logyo');
 
 // Same usage as above
 logger.logStartup({
+  name: '🤖 MY AWESOME BOT 🤖',
   version: '1.0.0',
   commandCount: 25
 });
@@ -79,6 +80,7 @@ Display a beautiful startup banner with system information.
 
 #### Parameters:
 - **botInfo** (Object)
+  - **name** (string, optional) - Bot/Application name (default: "🤖 APPLICATION LOGGER 🤖")
   - **version** (string) - Bot version
   - **commandCount** (number) - Number of available commands
 
@@ -229,17 +231,7 @@ Unicode icons for various elements:
 
 ---
 
-# 📁 File Logging
-Logyo automatically saves logs to JSON files in the `logs/` directory:
-
-- **Daily log files**: `bot-YYYY-MM-DD.json`
-- Structured JSON format with timestamps
-- Process ID tracking
-- Automatic directory creation
-
----
-
-# 🔧 Configuration
+#  Configuration
 Currently, Logyo uses sensible defaults. Future versions will include:
 
 - Custom color schemes

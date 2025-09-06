@@ -17,6 +17,7 @@ export interface MessageData {
 }
 
 export interface BotInfo {
+    name?: string;
     version?: string;
     commandCount?: number;
     [key: string]: any;
@@ -140,7 +141,6 @@ export interface Utils {
     getTimeStamp(includeDate?: boolean): string;
     formatBytes(bytes: number, decimals?: number): string;
     formatDuration(ms: number): string;
-    logToFile(level: string, message: string, data?: Record<string, any>): void;
 }
 
 export interface Logger {
